@@ -8,21 +8,17 @@ const path = require('path');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
-axios.defaults.withCredentials = true;
-axiosCookieJarSupport(axios);
-const cookieJar = new tough.CookieJar();
-
-const getFileData = (url) => {
-    return {
-        path: url,
-        data: fs.createReadStream(url),
-        size: fs.statSync(url),
-        name: path.basename(url),
-        nameWithoutExt: path.basename(url).split('.').slice(0, -1).join('.')
-    }
-}
-
 (async () => {
+
+    const getFileData = (url) => {
+        return {
+            path: url,
+            data: fs.createReadStream(url),
+            size: fs.statSync(url),
+            name: path.basename(url),
+            nameWithoutExt: path.basename(url).split('.').slice(0, -1).join('.')
+        }
+    }
 
     let baseUrl = 'https://www3.miele.de';
     let url = baseUrl + '/';
@@ -34,11 +30,14 @@ const getFileData = (url) => {
     const uploadIdUrl = 'https://www3.miele.de/videodb/dam/core/views/upload-media/upload-single-media.php';
     const uploadUrl = 'https://www3.miele.de/videodb/action/uploadMedia';
 
-    const file = getFileData(process.argv[2]);
+    const file = getFileData(process.argv[2]); // 3rd command line arg should be the filename
     const fileImportMode = 'replace_current_version'; // can also be create_new_version
     const randomUploadId = '0_5838'; // stupid arbitrary number. No idea what it's used for but have to add it to the post data
-
     let dom, assetId, uploadId, versionTag;
+
+    //setting up cookiejar support for Axios - needed to store and use cookies across requests
+    axiosCookieJarSupport(axios);
+    const cookieJar = new tough.CookieJar();
 
     const config = {
         proxy: {
@@ -50,6 +49,9 @@ const getFileData = (url) => {
         maxRedirects: 0,
         jar: cookieJar
     };
+
+
+
 
     // Go to base url
     // get redirected
@@ -168,9 +170,6 @@ const getFileData = (url) => {
         console.log('Unexpected error. Quitting')
         return null;
     }
-
-
-    return null;
 
     // finally uploading the file
     const uploadFormData = new FormData();
