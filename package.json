@@ -1,0 +1,27 @@
+{
+  "name": "mdam-upload-tool",
+  "version": "0.0.1",
+  "description": "Custom tool for uploading assets to mdam.",
+  "main": "./src/index.js",
+  "scripts": {
+    "upload": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirkovw/mdam-upload-tool.git"
+  },
+  "author": "Mirko van Willigenburg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mirkovw/mdam-upload-tool/issues"
+  },
+  "homepage": "https://github.com/mirkovw/mdam-upload-tool#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "axios-cookiejar-support": "^1.0.1",
+    "form-data": "^4.0.0",
+    "fs-extra": "^9.1.0",
+    "jsdom": "^16.5.2",
+    "tough-cookie": "^4.0.0"
+  }
+}
