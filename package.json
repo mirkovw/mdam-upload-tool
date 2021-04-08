@@ -1,6 +1,6 @@
 {
   "name": "mdam-upload-tool",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Custom tool for uploading assets to mdam.",
   "main": "./src/index.js",
   "scripts": {
