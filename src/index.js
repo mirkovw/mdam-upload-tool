@@ -40,10 +40,10 @@ const { JSDOM } = jsdom;
     const cookieJar = new tough.CookieJar();
 
     const config = {
-        proxy: {
-            host: 'localhost',
-            port: 8888
-        },
+        // proxy: {
+        //     host: 'localhost',
+        //     port: 8888
+        // },
         headers: {},
         withCredentials: true,
         maxRedirects: 0,
